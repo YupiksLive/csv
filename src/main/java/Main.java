@@ -6,9 +6,13 @@ import com.opencsv.bean.ColumnPositionMappingStrategy;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.exceptions.CsvValidationException;
+import org.xml.sax.SAXException;
 
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
@@ -17,10 +21,23 @@ public class Main {
     public static void main(String[] args) {
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
         String fileName = "data.csv";
+        List<Employee> list2 = parseXML("data.xml");
         List<Employee> list = parseCSV(columnMapping, fileName);
         String json = listToJson(list);
         writeString(json);
     }
+
+    private static List<Employee> parseXML(String s)  {
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newDefaultInstance();
+            DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document document = documentBuilder.parse(new File(s));
+        } catch (ParserConfigurationException | IOException | SAXException e){
+            e.printStackTrace();
+        }
+
+    }
+
     private static void writeString(String json){
         File file = new File("src//main//java//","data.json");
         try (FileWriter fileWriter = new FileWriter(file,false)){
