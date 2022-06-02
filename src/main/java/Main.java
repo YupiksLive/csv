@@ -24,10 +24,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         String[] columnMapping = {"id", "firstName", "lastName", "country", "age"};
-        String fileName = "data.csv";
-        String fileNameXml = "data.xml";
-        String jspnForCsv = "dataCsv.json";
-        String jspnForXml = "dataXml.json";
+        String fileName = "src/main/java/data.csv";
+        String fileNameXml = "src/main/java/data.xml";
+        String jspnForCsv = "src/main/java/dataCsv.json";
+        String jspnForXml = "src/main/java/dataXml.json";
         List<Employee> list2 = parseXML(fileNameXml);
         List<Employee> list = parseCSV(columnMapping, fileName);
         String json = listToJson(list);
